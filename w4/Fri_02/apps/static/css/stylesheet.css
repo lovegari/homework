@@ -1,0 +1,21 @@
+html, body {
+	font-family:Futura;
+	height: 100%;
+	width: 100%;
+
+}
+
+#id {
+	height : 100px;
+}
+
+#id h2 {
+	text-align: center;
+	padding-top: 20px;
+	color: black;
+}
+
+.form {
+	text-align:left; 
+	font-size:15px;
+}

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>lovegari Twit!</title>
     
+
     <script src="static/js/jquery-1.11.0.min.js"></script>
     <script src="static/js/lightbox.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -15,34 +16,26 @@
     <link rel="stylesheet" type="text/css" href="/static/css/lightbox.css">
     <link href="/static/css/bootstrap.min.css" rel="stylesheet"> 
 </head>
-<body style="font-family:Futura, Sans-serif">
+<body>
     <div id="header">
-        <p style="text-align:center; font-size:100px">lovegari Twit!</p>
+        <h2>lovegari Twit!</h2>
     </div>    
-    
-    <br><br>
-
-    <div class="container" style="margin:0 auto;max-width:100rem;width:90%">
-        
-        <div style="margin:0 auto;max-width:40rem;width:90%">
-        <form action="{{ url_for("upload_db") }}" enctype="multipart/form-data" method="POST">
-            <p> 1. Pick up a image!      : <input type="file" name="photo"> </p>
-            <p> 2. Comment on the image! : <input type="text" name="words">
-            <input type="submit" value="submit"> </p>
-        </form>
-        </div>
-    
-        <br>
-    
-        <p style="text-align:center; color:orange">
+    <div class="container">
+        <p>
         {% if comment %}
         {{ comment }}
         {% endif %}
         </p>
 
-        <br>
+        <form action="{{ url_for("upload_db") }}" enctype="multipart/form-data" method="POST">
+            <p> 1. Pick up a image!      : <input type="file" name="photo"> </p>
+            <p> 2. Comment on the image! : <input type="text" name="words">
+            <input type="submit" value="submit"> </p>
+        </form>
+
+        <br><br>
         
-        <div class="image-row" style="margin:0 auto;max-width:100rem;width:90%">
+        <div class="image-row">
             <div class="image-set">
                 {% for items in all_list %}
                 <a class="example-image-link" href="show/{{ items.key() }}" data-lightbox="example-set"><p>{{ items.text }}</p><img class="example-image" src="show/{{ items.key() }}" alt=""></a>
