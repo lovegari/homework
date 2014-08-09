@@ -3,6 +3,20 @@ body {
 }
 
 .no-list {
-    padding: 10px;
-    text-align: center;
+padding: 10px;
+text-align: center;
+}
+
+.float-right {
+float: right;
+}
+
+.bottomButtons {
+margin: 10px 0 0 0;
+padding: 10px;
+text-align: center;
+}
+
+.llCommentList {
+margin: 10px 0 0 0;
 }

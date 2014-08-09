@@ -2,7 +2,7 @@
 
 {% block contents %}
     <div class="llArticleDetail">
-        <h1>글 상세보기</h1>
+        <h2>글 상세보기</h2>
 
         <div class="panel panel-primary">
             <div class="panel-heading">
@@ -10,6 +10,9 @@
             </div>
             <div class="panel-body">
                 {{ article.content|safe }}
+                <div class="float-right">
+                <a href="{{ url_for('article_like', id=article.id) }}" ><i class="fa fa-thumbs-o-up"></i></a>   {{ article.count }}
+                </div>
             </div>
         </div>
 
@@ -24,16 +27,19 @@
             {% if comments %}
                 {% for comment in comments %}
                     <div class="well well-sm">
-                        <span class="badge">{{ loop.index }}</span> {{ comment.content }}
+                        <!---
+                        <span class="badge">{{ loop.index }}</span>
+                        -->
+                        <span class="label label-primary">{{ comment.author }}</span>
+                        {{ comment.content }}
                         <span class="float-right">
-                            <span class="label label-primary">{{ comment.author }}</span>
                             <small>
                                 <a href="mailto:{{ comment.email }}">{{ comment.email }}</a> 
                                 <em>{{ comment.date_created.strftime('%Y-%m-%d %H:%M:%S') }}</em>
                             </small>     
                         </span>
-                        <a href="{{ url_for('comment_like', id=comment.id) }}" class="btn btn-success">좋아요 {{ like }}</a>
-                        <a href="{{ url_for('comment_delete', id=comment.id) }}" class="btn btn-danger">삭제</a>
+                        <a href="{{ url_for('comment_like', id=comment.id) }}"><i class="fa fa-thumbs-o-up"></i></a>   {{ comment.count }}   
+                        <a href="{{ url_for('comment_delete', id=comment.id) }}"><i class="fa fa-times"></i></a>
                     </div>
                 {% endfor %}
             {% else %}

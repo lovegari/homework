@@ -27,7 +27,8 @@ def article_create():
 			author = article_data['author'],
 			category = article_data['category'],
 			content = article_data['content'],
-			password = article_data['password']
+			password = article_data['password'],
+			count = 0
 		)
 
 		db.session.add(article)
@@ -43,6 +44,15 @@ def article_detail(id):
 	comments = article.comments.order_by(desc(Comment.date_created)).all()
 	
 	return render_template('article/detail.html', article=article, comments=comments)
+
+@app.route('/article/like/<int:id>', methods=['GET', 'POST'])
+def article_like(id):
+	article = Article.query.get(id)
+	article.count += 1
+
+	db.session.commit()
+
+	return redirect(url_for('article_detail', id=id))
 
 @app.route('/article/update/<int:id>', methods=['GET', 'POST'])
 def article_update(id):
@@ -107,7 +117,8 @@ def comment_create(article_id):
             email = comment_data['email'],
             content = comment_data['content'],
             password = comment_data['password'],
-            article = Article.query.get(article_id)
+            article = Article.query.get(article_id),
+            count = 0
 
         )
 
@@ -120,13 +131,13 @@ def comment_create(article_id):
 @app.route('/comment/like/<int:id>', methods=['GET', 'POST'])
 def comment_like(id):
 	comment = Comment.query.get(id)
-
 	comment.count += 1
-	like = comment.count
+
+	db.session.commit()
 
 	id = comment.article_id
 
-	return redirect(url_for('article_detail', like=like, id=id))
+	return redirect(url_for('article_detail', id=id))
 
 @app.route('/comment/delete/<int:id>', methods=['GET', 'POST'])
 def comment_delete(id):
@@ -150,7 +161,7 @@ def comment_delete(id):
 
 		else:
 			flash(u'비밀번호가 틀렸습니다.', 'danger')
-			return redirect(url_for('article_delete', id=id))
+			return redirect(url_for('comment_delete', id=id))
 #
 # @error Handlers
 #
